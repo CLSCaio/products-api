@@ -1,12 +1,18 @@
+require('./database')
 const app = require('express')()
-const consign = require('consign')
+
+const express = require('express')
+const cors = require('cors')
+
+app.use(cors())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 const port = process.env.PORT || 9001
  
-consign()
-  .then('src/config/middlewares')
-  .then('src/api/methods')
-  .into(app)
+app.get('/', (req, res) => {
+  return res.json(db)
+})
 
 app.listen(port, () => {
   console.info(`Server executando em http://localhost:${port} ...`)
